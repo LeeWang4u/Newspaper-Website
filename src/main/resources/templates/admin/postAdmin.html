@@ -71,11 +71,13 @@
                     </form>
 
                     <!-- Form Cập Nhật Bài Viết -->
-                    <form th:action="@{/admin/post/update}" method="post" name="update">
-                        <input type="hidden" name="id" th:value="${post.getIdPost()}" />
-                        <input type="hidden" name="action" value="update" />
-                        <button type="submit" class="primary-button btn-tranparent">Update</button>
-                    </form>
+<!--                    <form th:action="@{/admin/post/update}" method="post" name="update">-->
+<!--                        <input type="hidden" name="id" th:value="${post.getIdPost()}" />-->
+
+<!--                        <input type="hidden" name="action" value="update" />-->
+<!--                        <button type="submit" class="primary-button btn-tranparent">Update</button>-->
+<!--                    </form>-->
+                    <a class="primary-button btn-tranparent" th:href="@{/admin/update/__${post.getIdPost()}__}">Update</a>
                 </div>
             </div>
         <div class="links post-links" >

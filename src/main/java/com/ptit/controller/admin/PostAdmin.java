@@ -127,17 +127,39 @@ public class PostAdmin {
         model.addAttribute("categories",categories);
         return "admin/postAdmin";
     }
+    @GetMapping("/update/{idPost}")
+    public String Update(@PathVariable(name = "idPost") int idPost,Model model,@ModelAttribute("postdto") PostDto postDto){
+        Post post = postService.getPostbyIdPost(idPost);
 
-    @PostMapping(value = "/post/update", params = "action=update")
-    public String updatePost(@RequestParam("id") int idPost){
+        postDto.setTitle(post.getTitle());
+        postDto.setContentPost(post.getContentPost());
+        String category = post.getIdCategory().getCategoryName();
+        List<Category> categoryList = categoryService.findAllByOrderByIdCategoryDesc();
+        model.addAttribute("post",post);
+        model.addAttribute("cate",category);
+        model.addAttribute("categoryList",categoryList);
+        return "admin/updatePost";
+    }
+    @PostMapping( "/post/update")
+    public String updatePost(@RequestParam("idPost") int idPost,Model model, @ModelAttribute("postdto") PostDto postDto
+                           ){
         System.out.println("id cap nhat la: " + idPost);
+       Post post = postService.getPostbyIdPost(idPost);
+
+
+        postDto.setUser(post.getEmail());
+        postDto.setTitle(post.getTitle());
+        postDto.setContentPost(post.getContentPost());
+        postDto.setCategory(post.getIdCategory());
+        System.out.println(postDto.getTitle());
+//        if (post.getIdPost()!=0) {
+//            String filePath = storageService.store(postDto.getImage());
+//            filePath = getRelativePath(filePath);
+//
+//            postService.save(postDto, filePath);
+//        }
         return "admin/postAdmin";
     }
-
-
-
-
-
 }
 
 

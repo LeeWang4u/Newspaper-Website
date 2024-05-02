@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
-        int pageSize = 6;
+        int pageSize = 14;
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
@@ -69,7 +69,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findByIdCategoryOrderByIdPostDesc(int pageNum, Category category) {
-        int pageSize = 6;
+        int pageSize = 14;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         return postRepository.findByIdCategoryOrderByIdPostDesc(pageable,category);
     }

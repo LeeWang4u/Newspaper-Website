@@ -78,7 +78,7 @@
                         <button type="submit">Delete</button>
                     </form>
                 </div>
-                <div th:if="${userdto.getEmail().trim()==comment.email.getEmail().trim()}">
+                <div th:unless="${userdto.getRole()=='ROLE_ADMIN'}" th:if="${userdto.getEmail().trim()==comment.email.getEmail().trim()}">
                     <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" th:object="${cmtdto}">
                         <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
                         <input type="hidden" name="idCmt" th:value="${comment.getIdCmt()}" />
