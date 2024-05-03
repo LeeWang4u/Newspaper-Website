@@ -5,6 +5,7 @@ import com.ptit.Dto.UserDto;
 import com.ptit.Entities.Category;
 import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
+import com.ptit.Repository.CategoryRepository;
 import com.ptit.Repository.PostRepository;
 import com.ptit.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+    private CategoryRepository categoryRepository;
 
     @Override
     public void save(PostDto postDto, String image){
@@ -42,13 +44,15 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public void update(PostDto postDto, int id){
+    public void update(String title, String contentPost, String image,Category category,  int id){
         Post post = postRepository.findPostByIdPost(id);
 //        if (post == null) {
 //            return null;
 //        }
-        post.setTitle(postDto.getTitle());
-        post.setContentPost(postDto.getContentPost());
+        post.setTitle(title);
+        post.setContentPost(contentPost);
+        post.setImage(image);
+        post.setIdCategory(category);
 
         postRepository.save(post);
     }
@@ -72,5 +76,12 @@ public class PostServiceImpl implements PostService {
         int pageSize = 14;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         return postRepository.findByIdCategoryOrderByIdPostDesc(pageable,category);
+    }
+
+    @Override
+    public Page<Post> findByKeyword(String key, int pageNum) {
+        int pageSize = 8;
+        Pageable pageable = PageRequest.of(pageNum-1,pageSize);
+        return postRepository.findByTitleContainingOrderByIdPostDesc(key,pageable);
     }
 }

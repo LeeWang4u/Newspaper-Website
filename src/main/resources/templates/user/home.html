@@ -8,15 +8,16 @@
         <title>Tin tức 24H - Đọc báo mới nhất ngay hôm nay</title>
         <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/fonts/themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
-    </head>
+    </head>S
     <body>
     <header>
 
         <h1><a th:href="@{/user/home/page/1}">News</a></h1>
-        <div class="search-bar">
-            <input type="text" placeholder="Tìm kiếm">
-            <button>Tìm kiếm</button>
-        </div>
+        <form class="search-bar" th:action="@{/user/search/__${1}__}" method="post">
+            <input type="text" th:name ="keyWord" placeholder="Tìm kiếm">
+            <button type="submit" >Tìm kiếm</button>
+        </form>
+
         <div class="right">
              <a th:href="@{/user/home/page/1}">Trang Chủ</a>
               <a th:unless="${userdto.email}" th:href="@{/login}">Login</a>

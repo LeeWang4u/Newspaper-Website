@@ -343,6 +343,12 @@ main> :first-child img {
     margin-bottom: 20px;
     text-align: center;
 }
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
 
 .login-form label {
     display: block;

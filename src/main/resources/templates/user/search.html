@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Tin tức 24H - Đọc báo mới nhất ngay hôm nay</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/fonts/themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+
+    <h1><a th:href="@{/user/home/page/1}">News</a></h1>
+    <form class="search-bar" th:action="@{/user/search/__${1}__}" method="post">
+        <input type="text" name ="keyWord" placeholder="Tìm kiếm" th:value="${keyWord}">
+        <button>Tìm kiếm</button>
+    </form>
+    <div class="right">
+        <a th:href="@{/user/home/page/1}">Trang Chủ</a>
+        <a th:unless="${userdto.email}" th:href="@{/login}">Login</a>
+        <a th:if="${userdto.email}" th:href="@{/logout}" methods="RequestMethod.GET">Logout</a>
+        <div th:if="${userdto.email}">
+            <div  th:if="${userdto.getRole()=='ROLE_ADMIN'}">
+                <a  th:href="@{/admin/home}" >Admin</a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="category">
+    <div>
+        <a class="active" th:href="@{/user/home/page/1}" >Tất cả</a>
+    </div>
+    <div  th:each="catergory, iterStat : ${categories}">
+        <a th:text = "${catergory.getCategoryName()}" th:href="@{/user/home/category/__${catergory.getCategoryName()}__/1}">  </a>
+    </div>
+</div>
+<main>
+    <div class="centered-content" th:if="${totalItems == 0}">
+        <p>Không tìm thấy bài viết nào tương tự</p>
+    </div>
+    <div th:unless="${totalItems == 0}">
+    <div th:each="post, iterStat : ${listPost}">
+        <div class="card">
+            <div class="img-holder">
+                <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
+            </div>
+            <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" >
+                <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+                <input type="hidden" name="idCmt" th:value="${0}" />
+                <button type="submit" th:text="${post.getTitle()}"></button>
+
+            </form>
+            <!--                <p th:text="${post.getTitle()}"></p>-->
+            <span th:text="${#strings.substring(post.getContentPost(), 0, 100)} + '...'"></span>
+
+            <div class="card-footer">
+                <a th:text = "${post.getIdCategory().getCategoryName()}" th:href="@{/user/home/category/__${post.getIdCategory().getCategoryName()}__/1}">  </a>
+                <p th:text="${post.getTimePost()}"></p>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+</main>
+<div th:unless="${totalItems == 0}">
+<div class="links">
+    <div  th:if="${currentPage > 1}">
+        <a  tabindex="-1" aria-disabled="true" th:href="@{'/user/search/' + ${currentPage - 1}}">Last</a>
+        <span th:unless="${currentPage > 1}">Last</span>
+    </div>
+    <th:block th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <span>
+                <a  th:if="${currentPage != i}" th:href="@{/user/search/__${i}__}">[[${i}]]</a>
+                <span th:unless="${currentPage != i}">[[${i}]]</span>
+            </span>
+    </th:block>
+    <div  th:if="${currentPage < totalPages}">
+        <a  th:href="@{'/user/search/' + ${currentPage + 1}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+    </div>
+
+</div>
+</div>
+</body>
+
+</html>

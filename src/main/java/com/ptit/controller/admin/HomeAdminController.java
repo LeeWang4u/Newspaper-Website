@@ -48,6 +48,7 @@ public class HomeAdminController {
     @GetMapping("/post/{pageNum}")
     public String Post(Model model,
                        @PathVariable(name = "pageNum") int pageNum){
+
         Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
         int totalItems =page.getNumberOfElements() ;
         int totalPages= page.getTotalPages();

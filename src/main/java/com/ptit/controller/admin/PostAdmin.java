@@ -9,6 +9,7 @@ import com.ptit.Entities.Post;
 import com.ptit.Entities.User;
 import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import java.io.File;
 @SessionAttributes("userdto")
 public class PostAdmin {
 
+    //  public int index = 1;
 
     @Autowired
     private StorageService storageService;
@@ -56,7 +58,6 @@ public class PostAdmin {
             String username = cate.getCategoryName();
             System.out.println(username);
         }
-
         return "admin/newPost";
     }
 
@@ -68,6 +69,8 @@ public class PostAdmin {
         }
         return "";
     }
+
+
 
     @PostMapping("/post/new-post")
     public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto,
@@ -99,6 +102,8 @@ public class PostAdmin {
         return "admin/postAdmin";
     }
 
+
+
     @PostMapping(value = "/post/delete", params = "action=delete")
     public String deletePost( @RequestParam("id") int idPost,Model model){
 
@@ -127,41 +132,215 @@ public class PostAdmin {
         model.addAttribute("categories",categories);
         return "admin/postAdmin";
     }
-    @GetMapping("/update/{idPost}")
-    public String Update(@PathVariable(name = "idPost") int idPost,Model model,@ModelAttribute("postdto") PostDto postDto){
-        Post post = postService.getPostbyIdPost(idPost);
 
+/*
+    @GetMapping(value = "/post/update", params = "action=update")
+//@GetMapping( "/post/update")
+//@PostMapping(value = "/post/update", params = "action=update")
+    public String updatePost(Model model, //@RequestBody String data,
+                             @RequestParam("id") int idPost
+        ,@RequestParam("image") MultipartFile image
+){
+        System.out.println("id cap nhat la: " + idPost);
+        //index = idPost;
+        Post post = postService.getPostbyIdPost(idPost);
+      //      Category category = categoryService.getCategoryByIdCategory(post.getIdCategory());
+        System.out.println(post.getTitle());
+        System.out.println(post.getContentPost());
+
+        System.out.println(post.getImage());
+
+        PostDto postDto = new PostDto();
         postDto.setTitle(post.getTitle());
         postDto.setContentPost(post.getContentPost());
-        String category = post.getIdCategory().getCategoryName();
-        List<Category> categoryList = categoryService.findAllByOrderByIdCategoryDesc();
-        model.addAttribute("post",post);
-        model.addAttribute("cate",category);
-        model.addAttribute("categoryList",categoryList);
+
+    model.addAttribute("Title",post.getTitle());
+    model.addAttribute("ContentPost",post.getContentPost());
+    String filePath = storageService.store(image);
+    filePath = getRelativePath(filePath);
+
+    System.out.println(filePath);
+
+
+    //data = post.getTitle();
+        //model.addAttribute("data",data);
+        //model.addAttribute("postDto",postDto);
+
+       // System.out.println(post.getIdCategory());
+
+//        model.addAttribute("title",post.getTitle());
+//        model.addAttribute("contentPost",post.getContentPost());
+//        model.addAttribute("image",post.getImage());
+       // model.addAttribute("category",post.getIdCategory());
+
         return "admin/updatePost";
     }
-    @PostMapping( "/post/update")
-    public String updatePost(@RequestParam("idPost") int idPost,Model model, @ModelAttribute("postdto") PostDto postDto
-                           ){
-        System.out.println("id cap nhat la: " + idPost);
-       Post post = postService.getPostbyIdPost(idPost);
-
-
-        postDto.setUser(post.getEmail());
-        postDto.setTitle(post.getTitle());
-        postDto.setContentPost(post.getContentPost());
-        postDto.setCategory(post.getIdCategory());
-        System.out.println(postDto.getTitle());
-//        if (post.getIdPost()!=0) {
-//            String filePath = storageService.store(postDto.getImage());
-//            filePath = getRelativePath(filePath);
+    */
+//    @GetMapping("/post/update/save/{idPost}")
+//    public String update(Model model, @PathVariable(name = "idPost") int idPost){
+//        Post post = postService.getPostbyIdPost(idPost);
 //
-//            postService.save(postDto, filePath);
-//        }
+//        model.addAttribute("Title",post.getTitle());
+//        model.addAttribute("ContentPost",post.getContentPost());
+//        return "admin/updatePost";
+//
+//    }
+/*
+    @PostMapping("/post/update/save/{idPost}")
+    public String saveUpdate(//@ModelAttribute("postdto") PostDto postDto,
+                            // @RequestParam("category") String selectedOption ,
+                             @PathVariable(name = "idPost") int idPost,
+                             @RequestParam("title") String title ,
+                             @RequestParam("contentPost") String contentPost ,
+                             @RequestParam("image") MultipartFile image){
+        try {
+
+
+//            Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
+//            postDto.setCategory(cate);
+
+            String filePath = storageService.store(image);
+            filePath = getRelativePath(filePath);
+            System.out.println(filePath);
+            System.out.println(title);
+
+            //postService.save(postDto,filePath);
+            System.out.println(idPost);
+
+
+        } catch (Exception e) {
+
+            System.out.println("khong them duoc bai viet");
+        }
+        return "admin/newPost";
+
+    }
+*/
+
+   /*
+//    @PostMapping(value = "/post/update", params = "action=update")
+@PostMapping("/post/update")
+    public String update(Model model, @RequestParam("id") int idPost,
+                      //   @ModelAttribute("postdto") PostDto postDto, // @RequestParam("id") int idPost,
+//            @RequestParam("title") String title ,
+//    @RequestParam("contentPost") String contentPost ,
+    @RequestParam("image") MultipartFile image){
+        //PostDto postDto ;
+
+      //  int idPost=index;
+        String filePath ="";
+        if (image.isEmpty()) {
+            Post post = postService.getPostbyIdPost(idPost);
+            filePath = post.getImage();
+        }
+        else{
+            filePath = storageService.store(image);
+            filePath = getRelativePath(filePath);
+        }
+      //  postService.update(title,contentPost,filePath,idPost);
+
+        int pageNum =1;
+
+        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<Post> listPost = page.getContent();
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listPost", listPost);
+        model.addAttribute("categories",categories);
+        return "admin/postAdmin";
+
+
+    }
+    */
+
+
+    @GetMapping( "/post/update")
+    public String updatePost(@RequestParam("id") int idPost, Model model,  HttpSession session) {
+        System.out.println("dau roiiiiiiiiiiiiiii ");
+
+        Post post = postService.getPostbyIdPost(idPost);
+        System.out.println("id cap nhat la: " + idPost);
+        System.out.println(post.getTitle());
+        System.out.println(post.getContentPost());
+
+        System.out.println(post.getImage());
+
+
+
+        // System.out.println(post.getIdCategory());
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+        model.addAttribute("categories",categories);
+        model.addAttribute("Cate", post.getIdCategory().getCategoryName());
+        model.addAttribute("Title",post.getTitle());
+        model.addAttribute("ContentPost",post.getContentPost());
+        //model.addAttribute("idPost", idPost);
+
+        session.setAttribute("idPost", idPost);
+
+        return "admin/updatePost";
+    }
+
+    @PostMapping("/post/update")
+    public String saveUpdatePost(@ModelAttribute("idPost") String idPost,  HttpSession session,
+                                 @RequestParam("title") String title, @RequestParam("contentPost") String contentPost
+            ,@RequestParam("image") MultipartFile image, Model model,
+                                 @RequestParam("category") String selectedOption ) {
+        System.out.println("whyyyyy");
+        int id = (int) session.getAttribute("idPost");
+        System.out.println(id);
+        System.out.println(title);
+        System.out.println(contentPost);
+
+
+        try {
+
+
+            String filePath ="";
+            if (image.isEmpty()) {
+                Post post = postService.getPostbyIdPost(id);
+                filePath = post.getImage();
+            }
+            else{
+                filePath = storageService.store(image);
+                filePath = getRelativePath(filePath);
+            };
+            Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
+
+
+
+            //postService.save(postDto,filePath);
+            postService.update(title,contentPost,filePath,cate,id);
+            System.out.println(idPost);
+
+
+        } catch (Exception e) {
+
+            System.out.println("khong them duoc bai viet");
+        }
+
+        int pageNum = 1;
+        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<Post> listPost = page.getContent();
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listPost", listPost);
+        model.addAttribute("categories",categories);
         return "admin/postAdmin";
     }
-}
 
+
+
+}
 
 
 

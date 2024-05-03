@@ -1,3 +1,100 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" >-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">-->
+<!--    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>-->
+<!--    &lt;!&ndash;    <link  href="{https://fonts.googleapis.com/css2?family=Forum&display=swap}" rel="stylesheet">&ndash;&gt;-->
+<!--    <link rel="stylesheet" th:href="@{/css/stylesAdmin.css}" type="text/css">-->
+<!--    <script th:src="@{/script.js}" type="module"></script>-->
+<!--    <title>Post</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<canvas class="orb-canvas"></canvas>-->
+<!--<main class="center__content">-->
+<!--    <div class="main__header">-->
+<!--        <h1> Update Post</h1>-->
+<!--        <form class="overlay" th:action="@{update}" method="post" th:object="${postdto}"  enctype="multipart/form-data">-->
+
+<!--            <h1>Update post</h1>-->
+<!--            <div class ="group" >-->
+<!--                <input   type="text" class="input"   th:field="*{title}"  required >-->
+<!--&lt;!&ndash;                th:value="${postDto.getTitle()}"&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="highlight"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <span class="bar"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <label>Title</label>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <textarea placeholder="Type your content" id="content"  cols="30" rows="10"  name = "contentPost"  th:field="*{contentPost}"   required></textarea>-->
+<!--&lt;!&ndash;            th:text="${postDto.getContentPost()}"&ndash;&gt;-->
+<!--            <div class="overlay__submit-button">-->
+<!--                <label for="file" class="secondary-btn file-upload" >-->
+<!--                    &lt;!&ndash;              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">&ndash;&gt;-->
+<!--                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
+<!--                    Chọn lại ảnh-->
+<!--                    &lt;!&ndash;              <input id="file" type="file" name = "image" th:field = "*{image}" required>&ndash;&gt;-->
+<!--                    <input id="file" type="file" name = "image" >-->
+
+<!--                    &lt;!&ndash;              <input id="file" type="file" name = "image" >&ndash;&gt;-->
+
+<!--                </label>-->
+
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <label for="category">Category:</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <select id="category" name="category" th:text="${category.getCategoryName()}" th:field ="*{category}" required>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option th:each="category : ${categoryList}" th:value="${category.getIdCategory()}" th:text="${category.getCategoryName()}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <button type="submit" class="btn-3">-->
+<!--                    <div class="svg-wrapper">-->
+<!--                        <div class="with-send-icon">-->
+<!--                            <img th:src="@{/fonts/themify-icons/SVG/icon-send.svg}" alt="ac.">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <span>Send</span>-->
+<!--                </button>-->
+<!--            </div>-->
+
+<!--        </form>-->
+<!--    </div>-->
+<!--</main>-->
+<!--<script type="module" src="script.js"> </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,33 +105,31 @@
     <!--    <link  href="{https://fonts.googleapis.com/css2?family=Forum&display=swap}" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{/css/stylesAdmin.css}" type="text/css">
     <script th:src="@{/script.js}" type="module"></script>
-    <title>Post Update</title>
+    <title>Post</title>
 </head>
 <body>
 <canvas class="orb-canvas"></canvas>
-<div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
-    <h1>Bạn không có quyền truy cập vào Admin</h1>
-</div>
-<main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
+<main class="center__content">
     <div class="main__header">
         <h1> New Post</h1>
-        <form class="overlay" th:action="@{/admin/post/update}" method="post" th:object="${postdto}" >
-            <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
+        <form class="overlay" th:action="@{update}" method="post" enctype="multipart/form-data">
             <h1>Send a new post</h1>
             <div class ="group" >
-                <input type="text" class="input"   th:field="*{title}" required >
-                <span class="highlight"></span>
-                <span class="bar"></span>
-
+                <input type="text" name ="title" class="input" th:value="${Title}"  required >
+                <!--                <span class="highlight"></span>-->
+                <!--                <span class="bar"></span>-->
+                <!--                <label>Title</label>-->
             </div>
-            <textarea placeholder="Type your content" id="content" cols="30" rows="10" th:field="*{contentPost}"  required></textarea>
+            <textarea placeholder="Type your content" id="content" name = "contentPost" cols="30" rows="10" th:text="${ContentPost}" required></textarea>
             <div class="overlay__submit-button">
                 <label for="file" class="secondary-btn file-upload" >
                     <!--              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
-                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">
+                    <!--                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
+                    <img th:src="@{/img/438124798_784307903801977_6277500578627844245_n.png}" alt="ac.">
+
                     Image
                     <!--              <input id="file" type="file" name = "image" th:field = "*{image}" required>-->
-                    <input id="file" type="file" name = "image" >
+                    <input id="file" type="file" name = "image">
 
                     <!--              <input id="file" type="file" name = "image" >-->
 
@@ -43,7 +138,7 @@
                 <div>
                     <label for="category">Category:</label>
                     <select id="category" name="category"  required>
-                        <option  th:text="${cate}"></option>
+                        <option th:each="category : ${categories}" th:value="${category.getIdCategory()}" th:text="${category.getCategoryName()}"  th:selected="${category.getCategoryName() == Cate}"></option>
                     </select>
                 </div>
 
@@ -51,11 +146,13 @@
                     <div class="svg-wrapper">
                         <div class="with-send-icon">
                             <img th:src="@{/fonts/themify-icons/SVG/icon-send.svg}" alt="ac.">
+
                         </div>
                     </div>
                     <span>Send</span>
                 </button>
             </div>
+
         </form>
     </div>
 </main>
