@@ -54,11 +54,20 @@
             <div class="post-table">
 
 
+<<<<<<< HEAD
                 <div class="box first" th:text="${post.getTitle()}"></div>
                 <p class="box second"><span th:text="${post.getEmail().getUserName()}"></span></p>
                 <p class="box second"><span th:text="${post.getIdCategory().getCategoryName()}"></span></p>
                 <div class="small text-muted" th:text="${post.getTimePost()}"></div>
                 <p class="card-text"><span th:text="${#strings.substring(post.getContentPost(), 0, 100)}+'...'"></span></p>
+=======
+                            <div class="box first" th:text="${post.getTitle()}"></div>
+                            <p class="box second"><span th:text="${post.getEmail().getUserName()}"></span></p>
+                            <p class="box second"><span th:text="${post.getIdCategory().getCategoryName()}"></span></p>
+                            <div class="small text-muted" th:text="${post.getTimePost()}"></div>
+<!--                            <p class="card-text"><span th:text="${#strings.substring(post.getContentPost(), 0, 100)}+'...'"></span></p>-->
+                        <p class="card-text"> <span th:text="${#strings.length(post.getContentPost()) &lt;= 100 ? post.getContentPost() : #strings.substring(post.getContentPost(), 0, 100) + '...'}"></span></p>
+>>>>>>> 0623ecb05caa6cd2581c586ed37219cce07cc2bc
 
                 <!--                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>-->
                 <!--                        <button class="primary-button btn-tranparent" onclick="if (!(confirm('Are you sure your want to delete this employee?'))) return false">Delete</button>-->

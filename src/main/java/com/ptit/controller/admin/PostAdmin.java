@@ -54,10 +54,7 @@ public class PostAdmin {
         List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
         model.addAttribute(categories);
 
-        for (Category cate : categories) {
-            String username = cate.getCategoryName();
-            System.out.println(username);
-        }
+
         return "admin/newPost";
     }
 
@@ -74,22 +71,24 @@ public class PostAdmin {
 
     @PostMapping("/post/new-post")
     public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto,
-                              @RequestParam("category") String selectedOption ,
-                              @RequestParam("image") MultipartFile image
+                              @RequestParam("category") String selectedOption
+            ,@RequestParam("image") MultipartFile image
     ){
-
+        System.out.println("duoc chuuuuuuuuuuuuuuuuuuuuuuuuu");
         try {
             UserDto currentUser = (UserDto) model.getAttribute("userdto");
 
             User user = userService.getUserByEmail(currentUser.getEmail().trim());
             postDto.setUser(user);
+            System.out.println("duoc chu");
 
             Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
             postDto.setCategory(cate);
 
+
             String filePath = storageService.store(image);
             filePath = getRelativePath(filePath);
-
+            //   postDto.setImage(filePath);
             postService.save(postDto,filePath);
             System.out.println("them duoc cai lonnnnnnnnn");
 
@@ -98,8 +97,20 @@ public class PostAdmin {
 
             System.out.println("khong them duoc bai viet");
         }
+        int pageNum = 1;
+        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
+        int totalItems =page.getNumberOfElements() ;
+        int totalPages= page.getTotalPages();
+        List<Post> listPost = page.getContent();
+        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
 
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("listPost", listPost);
+        model.addAttribute("categories",categories);
         return "admin/postAdmin";
+//        return "admin/home";
     }
 
 
@@ -341,7 +352,3 @@ public class PostAdmin {
 
 
 }
-
-
-
-

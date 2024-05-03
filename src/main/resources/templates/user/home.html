@@ -50,7 +50,8 @@
 
             </form>
 <!--                <p th:text="${post.getTitle()}"></p>-->
-                <span th:text="${#strings.substring(post.getContentPost(), 0, 100)} + '...'"></span>
+<!--                <span th:text="${#strings.substring(post.getContentPost(), 0, 100)} + '...'"></span>-->
+            <span th:text="${#strings.length(post.getContentPost()) &lt;= 100 ? post.getContentPost() : #strings.substring(post.getContentPost(), 0, 100) + '...'}"></span>
 
             <div class="card-footer">
                 <a th:text = "${post.getIdCategory().getCategoryName()}" th:href="@{/user/home/category/__${post.getIdCategory().getCategoryName()}__/1}">  </a>

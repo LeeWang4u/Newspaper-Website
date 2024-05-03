@@ -15,10 +15,6 @@ import java.io.Serializable;
 public class PostDto implements Serializable {
     String title;
 
-    MultipartFile image;
-
-    //String image;
-
     String contentPost;
     User user;
     Category category;

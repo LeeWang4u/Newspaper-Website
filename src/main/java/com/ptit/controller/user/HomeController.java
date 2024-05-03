@@ -116,6 +116,8 @@ public class HomeController {
 		model.addAttribute("categories",categories);
 		model.addAttribute("cate",category);
 
+
+
 		return "user/category";
 	}
 	@PostMapping("/search/{pageNum}")

@@ -65,8 +65,7 @@
     </div>
     </div>
 </main>
-<div th:unless="${totalItems == 0}">
-<div class="links">
+<div th:unless="${totalItems == 0}" class="links">
     <div  th:if="${currentPage > 1}">
         <a  tabindex="-1" aria-disabled="true" th:href="@{'/user/search/' + ${currentPage - 1}}">Last</a>
         <span th:unless="${currentPage > 1}">Last</span>
@@ -82,7 +81,6 @@
         <span th:unless="${currentPage < totalPages}">Next</span>
     </div>
 
-</div>
 </div>
 </body>
 
