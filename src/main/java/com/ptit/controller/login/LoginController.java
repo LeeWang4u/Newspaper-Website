@@ -31,11 +31,13 @@ public UserDto userDto() {return new UserDto();}
         User user = userService.getUserByEmail(userDto.getEmail());
         userDto.setUserName(user.getUserName());
         userDto.setRole(user.getRole().trim());
-        if(user.getRole().trim().equals("ROLE_ADMIN")){
-            return  "redirect:/admin/home";
-        }
-        if(userService.checkPassWordUser(userDto.getEmail(),userDto.getPassWord())){
-            return "redirect:/user/home/page/1?success";
+        if(userService.checkPassWordUserWithBcrypt(userDto.getPassWord(), userDto)){
+            if(user.getRole().trim().equals("ROLE_ADMIN")){
+                return  "redirect:/admin/home";
+            }
+            else{
+                return "redirect:/user/home/page/1?success";
+            }
         }
 //        System.out.println(userDto.getPassWord());
 //        System.out.println(userDto.getEmail());
