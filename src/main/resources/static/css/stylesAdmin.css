@@ -693,9 +693,11 @@ a {
     width: 100%;
     display: grid;
     /* đây là chỗ chính sách để sửa  */
-    grid-template-columns: 2fr 2fr 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
     grid-column-gap: var(--spacing-md);
     grid-row-gap: var(--spacing-md);
+    margin-bottom: 20px;
+    padding: 20px;
     justify-content: center;
 }
 .clo1 {

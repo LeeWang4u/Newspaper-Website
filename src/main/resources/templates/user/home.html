@@ -8,7 +8,7 @@
         <title>Tin tức 24H - Đọc báo mới nhất ngay hôm nay</title>
         <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css"/>
         <link th:href="@{/fonts/themify-icons/themify-icons.css}" rel="stylesheet" type="text/css"/>
-    </head>S
+    </head>
     <body>
     <header>
 
@@ -22,11 +22,14 @@
              <a th:href="@{/user/home/page/1}">Trang Chủ</a>
               <a th:unless="${userdto.email}" th:href="@{/login}">Login</a>
              <a th:if="${userdto.email}" th:href="@{/logout}" methods="RequestMethod.GET">Logout</a>
+
             <div th:if="${userdto.email}">
                 <div  th:if="${userdto.getRole()=='ROLE_ADMIN'}">
                     <a  th:href="@{/admin/home}" >Admin</a>
                 </div>
             </div>
+            <a th:if="${userdto.email}" th:href="@{/profile}" methods="RequestMethod.GET">Profile</a>
+
         </div>
     </header>
     <div class="category">

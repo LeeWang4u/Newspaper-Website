@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 public interface UserService {
     void save(UserDto userDto);
     Boolean checkPassWordUser(String email, String password);
+
+    Boolean checkPassWordUserWithBcrypt(String request, UserDto user);
+
     Boolean checkUserByEmail(String email);
     User getUserByEmail(String email);
     Page<User> findAllByOrderByEmailDesc(int pageNum);
     void delete(User user);
+    void update(UserDto userDto);
+    void changePass(UserDto userDto,String pass);
+
 }

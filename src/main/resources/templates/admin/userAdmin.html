@@ -35,19 +35,15 @@
 </header>
 <main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="main__header">
-<<<<<<< HEAD
-        <h1>Post</h1>
-        <a href="#" class="secondary-btn btn-transparent links" >New Post</a>
-=======
         <h1>User</h1>
 
->>>>>>> 3d9ab04197ec028f19a9d00340f7eead064dd0aa
+
     </div>
     <div class="overlay">
         <div class="user-table">
             <p class="clo1">Email</p>
             <p class="clo1">UserName</p>
-            <p class="clo1">Password</p>
+<!--            <p class="clo1">Password</p>-->
             <p class="clo1">Role</p>
             <div class="box" style="background-color:transparent"></div>
         </div>
@@ -56,7 +52,7 @@
             <div class="user-table">
                 <div class="clo2" th:text="${user.getEmail()}"></div>
                 <div class="clo2" th:text="${user.getUserName()}"></div>
-                <div class="clo2" th:text="${user.getPassWord()}"></div>
+<!--                <div class="clo2" th:text="${user.getPassWord()}"></div>-->
                 <div class="clo2" th:text="${user.getRole()}"> </div>
                 <form th:action="@{/admin/userAdmin/page/__${1}__}" method="post">
                     <input type="hidden" name="email" th:value="${user.getEmail()}" />

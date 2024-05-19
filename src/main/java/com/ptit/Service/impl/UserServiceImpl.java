@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +19,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDto userDto){
-        User user = new User(userDto.getUserName(),userDto.getEmail(),userDto.getPassWord(),"ROLE_USER");
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String passWord = passwordEncoder.encode(userDto.getPassWord());
+
+        User user = new User(userDto.getUserName(),userDto.getEmail(),passWord,"ROLE_USER");
+
+        userRepository.save(user);
+    }
+    @Override
+    public void update(UserDto userDto) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String passWord = passwordEncoder.encode(userDto.getPassWord());
+        User user = new User(userDto.getUserName(),userDto.getEmail(),passWord,userDto.getRole());
+        userRepository.save(user);
+    }
+
+    @Override
+    public void changePass(UserDto userDto, String pass) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String passWord = passwordEncoder.encode(pass);
+        User user = new User(userDto.getUserName(),userDto.getEmail(),passWord,userDto.getRole());
         userRepository.save(user);
     }
 
@@ -39,6 +60,15 @@ public class UserServiceImpl implements UserService {
         if(user==null) return false;
         return true;
     }
+
+    @Override
+    public Boolean checkPassWordUserWithBcrypt(String request, UserDto userDto){
+        User user = userRepository.findUserByEmail(userDto.getEmail());
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        return passwordEncoder.matches(request.trim(),user.getPassWord().trim());
+
+    }
     @Override
     public User getUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
@@ -57,5 +87,7 @@ public class UserServiceImpl implements UserService {
     public void delete(User user) {
         userRepository.delete(user);
     }
+
+
 
 }
