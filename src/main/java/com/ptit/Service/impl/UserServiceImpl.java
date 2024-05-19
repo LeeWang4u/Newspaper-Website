@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
         String passWord = passwordEncoder.encode(userDto.getPassWord());
 
         User user = new User(userDto.getUserName(),userDto.getEmail(),passWord,"ROLE_USER");
-
         userRepository.save(user);
     }
     @Override
