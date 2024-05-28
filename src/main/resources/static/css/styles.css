@@ -90,10 +90,10 @@ a:hover {
     padding: 0 10px;
 }
 
-.card-footer a,
-p {
+.card-footer a, p {
     color: rgba(44,44,44,0.8);
     font-weight: bold;
+    font-size: 14px;
     transition: all 0.3s linear;
 }
 .card-footer a:hover{
@@ -186,6 +186,7 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    row-gap: 30px;
     padding: 20px;
 }
 

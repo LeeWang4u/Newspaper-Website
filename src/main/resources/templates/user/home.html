@@ -44,7 +44,7 @@
         <div th:each="post, iterStat : ${listPost}">
         <div class="card">
                 <div class="img-holder">
-                    <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
+                    <img th:src="${post.getImage()}"  alt="..." >
                 </div>
             <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" >
                 <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />
