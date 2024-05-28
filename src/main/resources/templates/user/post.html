@@ -43,7 +43,7 @@
     <div class="category-holder">
         <a th:text = "${post.getIdCategory().getCategoryName()}" th:href="@{/user/home/category/__${post.getIdCategory().getCategoryName()}__/1}">  </a>
     </div>
-        <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
+        <img th:src="${post.getImage()}"  alt="..." >
 
     <p th:text="${post.getContentPost()}" ></p>
 
