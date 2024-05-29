@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <!--    <link  href="{https://fonts.googleapis.com/css2?family=Forum&display=swap}" rel="stylesheet">-->
+    <link rel="stylesheet" th:href="@{/css/stylesAdmin.css}" type="text/css">
+    <script th:src="@{/script.js}" type="module"></script>
+    <title>Category</title>
+</head>
+<body>
+<canvas class="orb-canvas"></canvas>
+<div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
+    <h1>Bạn không có quyền truy cập vào Admin</h1>
+</div>
+<header th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
+    <div class="nav-bar">
+        <div class="title">
+            <h1>Category</h1>
+        </div>
+        <div class="border-box"></div>
+        <div class="links">
+            <a th:href="@{/admin/home}">Home</a>
+            <p>/</p>
+            <a th:href="@{/admin/post/1}">Post</a>
+            <p>/</p>
+            <a href="#">Category</a>
+            <p>/</p>
+            <a href="#">User</a>
+        </div>
+    </div>
+</header>
+<main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
+    <div class="main__header">
+        <h1>User</h1>
+        <a th:href="@{/admin/category/new-category}" class="secondary-btn btn-transparent links">New Category</a>
+
+
+    </div>
+    <div class="overlay">
+        <div class="user-table">
+            <p class="clo1">Category</p>
+            <p class="clo1">Describe</p>
+            <!--            <p class="clo1">Password</p>-->
+<!--            <p class="clo1">Role</p>-->
+            <div class="box" style="background-color:transparent"></div>
+            <div class="box" style="background-color:transparent"></div>
+        </div>
+        <div th:each="category: ${categoryList}">
+
+            <div class="user-table">
+                <div class="clo2" th:text="${category.getCategoryName()}"></div>
+                <div class="clo2" th:text="${category.getDescribe()}"></div>
+                <!--                <div class="clo2" th:text="${user.getPassWord()}"></div>-->
+<!--                <div class="clo2" th:text="${user.getRole()}"> </div>-->
+                <form th:action="@{/admin/category/delete}" method="post" name="delete">
+                    <input type="hidden" name="id" th:value="${category.getIdCategory()}" />
+                    <input type="hidden" name="action" value="delete" />
+                    <button type="submit" class="primary-button btn-tranparent" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                </form>
+
+                <!--                     Form Cập Nhật Bài Viết-->
+                <form th:action="@{/admin/category/update}" method="get" name="update" >
+                    <input type="hidden" name="id" th:value="${category.getIdCategory()}" />
+                    <input type="hidden" name="action" value="update" />
+                    <button type="submit" class="primary-button btn-tranparent">Update</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</main>
+</body>
+</html>
