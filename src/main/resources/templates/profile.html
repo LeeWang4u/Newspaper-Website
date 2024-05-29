@@ -245,7 +245,7 @@
     </form>
     <form th:action="@{/deleteAcc}" method="post">
     <div class="delete-account" id="section4">
-        <button class="primary-btn">Delete Account</button>
+        <button  type="submit" class="primary-btn" onclick="return confirm('Are you sure you want to delete Account ?')">Delete Account</button>
     </div>
     </form>
 
