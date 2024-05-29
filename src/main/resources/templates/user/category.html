@@ -25,6 +25,7 @@
                 <a  th:href="@{/admin/home}" >Admin</a>
             </div>
         </div>
+        <a th:if="${userdto.email}" th:href="@{/profile}" methods="RequestMethod.GET">Profile</a>
     </div>
 </header>
 <div class="category">
@@ -42,7 +43,7 @@
         <div class="card">
 
             <div class="img-holder">
-                <img th:src="@{/img/wallhaven-lql5r2.jpg}"  alt="..." >
+                <img th:src="${post.getImage()}"  alt="..." >
             </div>
             <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" >
                 <input type="hidden" name="idPost" th:value="${post.getIdPost()}" />

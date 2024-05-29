@@ -28,6 +28,7 @@
                 <a  th:href="@{/admin/home}" >Admin</a>
             </div>
         </div>
+        <a th:if="${userdto.email}" th:href="@{/profile}" methods="RequestMethod.GET">Profile</a>
     </div>
 </header>
 <div class="category">
@@ -68,7 +69,7 @@
         <div th:each="comment : ${cmt}">
         <div class="each">
             <span th:text="${comment.email.getUserName()}"></span>
-            <img src="spacecat.png" alt="">
+            <img th:src="@{/img/anhdaidien.png}" alt="">
             <p th:text="${comment.contentCmt}"></p>
             <div th:if="${userdto.email}">
                 <div th:if="${userdto.getRole()=='ROLE_ADMIN'}">

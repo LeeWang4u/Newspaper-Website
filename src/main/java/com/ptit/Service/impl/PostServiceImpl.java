@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<Post> findAllByOrderByIdPostDesc(int pageNum) {
-        int pageSize = 14;
+        int pageSize = 7;
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 

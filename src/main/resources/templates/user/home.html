@@ -44,6 +44,7 @@
         <div th:each="post, iterStat : ${listPost}">
         <div class="card">
                 <div class="img-holder">
+
                     <img th:src="${post.getImage()}"  alt="..." >
                 </div>
             <form  th:action="@{/user/post/__${post.getTitle()}__}" method="post" >
