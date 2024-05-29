@@ -21,13 +21,20 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.save(category);
     }
     @Override
-    public void update(CategoryDto categoryDto, int id){
+    public void update(String name, String des, int id){
         Category category = categoryRepository.findCategoriesByIdCategory(id);
-        category.setCategoryName(categoryDto.getCategoryName());
-        category.setDescribe(categoryDto.getCategoryDescribe());
+        category.setCategoryName(name);
+        category.setDescribe(des);
 
         categoryRepository.save(category);
     }
+
+    @Override
+    public void delete(int id){
+        categoryRepository.deleteById(id);
+    }
+
+
     @Override
     public Category getCategoryByIdCategory(int idCategory) {
         return categoryRepository.findCategoriesByIdCategory(idCategory);
