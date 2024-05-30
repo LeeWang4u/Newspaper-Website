@@ -74,13 +74,11 @@ public class PostAdmin {
                               @RequestParam("category") String selectedOption
             ,@RequestParam("image") MultipartFile image
     ){
-        System.out.println("duoc chuuuuuuuuuuuuuuuuuuuuuuuuu");
         try {
             UserDto currentUser = (UserDto) model.getAttribute("userdto");
 
             User user = userService.getUserByEmail(currentUser.getEmail().trim());
             postDto.setUser(user);
-            System.out.println("duoc chu");
 
             Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
             postDto.setCategory(cate);
@@ -90,7 +88,6 @@ public class PostAdmin {
             filePath = getRelativePath(filePath);
             //   postDto.setImage(filePath);
             postService.save(postDto,filePath);
-            System.out.println("them duoc cai lonnnnnnnnn");
 
 
         } catch (Exception e) {
@@ -272,15 +269,8 @@ public class PostAdmin {
 
     @GetMapping( "/post/update")
     public String updatePost(@RequestParam("id") int idPost, Model model,  HttpSession session) {
-        System.out.println("dau roiiiiiiiiiiiiiii ");
 
         Post post = postService.getPostbyIdPost(idPost);
-        System.out.println("id cap nhat la: " + idPost);
-        System.out.println(post.getTitle());
-        System.out.println(post.getContentPost());
-
-        System.out.println(post.getImage());
-
 
 
         // System.out.println(post.getIdCategory());
@@ -301,7 +291,6 @@ public class PostAdmin {
                                  @RequestParam("title") String title, @RequestParam("contentPost") String contentPost
             ,@RequestParam("image") MultipartFile image, Model model,
                                  @RequestParam("category") String selectedOption ) {
-        System.out.println("whyyyyy");
         int id = (int) session.getAttribute("idPost");
         System.out.println(id);
         System.out.println(title);

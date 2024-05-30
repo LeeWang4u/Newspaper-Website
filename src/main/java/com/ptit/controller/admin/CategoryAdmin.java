@@ -62,17 +62,13 @@ public class CategoryAdmin {
     @PostMapping("/category/new-category")
     public String saveNewPost(Model model, @ModelAttribute("categorydto") CategoryDto categoryDto
     ){
-        System.out.println("duoc chuuuuuuuuuuuuuuuuuuuuuuuuu");
         try {
 
 
             categoryService.save(categoryDto);
-            System.out.println("them duoc cai lonnnnnnnnn");
 
 
         } catch (Exception e) {
-
-            System.out.println("khong them duoc bai viet");
         }
         List<Category> categoryList = categoryService.findAllByOrderByIdCategoryDesc();
 
@@ -87,7 +83,6 @@ public class CategoryAdmin {
     public String deletePost( @RequestParam("id") int IdCategory,Model model) {
 
 
-        System.out.println("id xoa la: " + IdCategory);
 
        // Category category = categoryService.getCategoryByIdCategory(IdCategory);
 
@@ -104,7 +99,6 @@ public class CategoryAdmin {
 
     @GetMapping( "/category/update")
     public String updatePost(@RequestParam("id") int idCategory, Model model,  HttpSession session) {
-        System.out.println("dau roiiiiiiiiiiiiiii ");
 
         Category category = categoryService.getCategoryByIdCategory(idCategory);
 
@@ -122,7 +116,6 @@ public class CategoryAdmin {
     public String saveUpdatePost(@ModelAttribute("idCategory") String idCategory,  HttpSession session, Model model,
                                  @RequestParam("categoryName") String categoryName, @RequestParam("categoryDes") String categoryDes
          ) {
-        System.out.println("whyyyyy");
         int id = (int) session.getAttribute("idCategory");
 
 
@@ -135,7 +128,6 @@ public class CategoryAdmin {
 
         } catch (Exception e) {
 
-            System.out.println("khong them duoc bai viet");
         }
 
         List<Category> categoryList = categoryService.findAllByOrderByIdCategoryDesc();
