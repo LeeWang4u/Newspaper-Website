@@ -36,17 +36,6 @@ public class HomeController {
 	public CommentDto cmtDto(){
 		return new CommentDto();
 	}
-//	@GetMapping("/home/page/1")
-//	public String home( Model model ) {
-//		Page<Post> page = postService.findAllByOrderByIdPostDesc();
-//		int totalItems =page.getNumberOfElements() ;
-//		int totalPages= page.getTotalPages();
-//		List<Post> listPost = page.getContent();
-//		model.addAttribute("listPost",listPost);
-//		model.addAttribute("totalPages", totalPages);
-//		model.addAttribute("totalItems",totalItems);
-//		return "user/home";
-//	}
 	@GetMapping("/post" )
 	public String post(@RequestParam("idPost") int idPost,Model model) {
 		Post post = postService.getPostbyIdPost(idPost);

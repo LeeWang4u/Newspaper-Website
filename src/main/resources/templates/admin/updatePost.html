@@ -108,7 +108,7 @@
     <title>Post</title>
 </head>
 <body>
-<canvas class="orb-canvas"></canvas>
+<!--<canvas class="orb-canvas"></canvas>-->
 <main class="center__content">
     <div class="main__header">
         <h1> Update Post</h1>
@@ -125,7 +125,7 @@
                 <label for="file" class="secondary-btn file-upload" >
                     <!--              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
                     <!--                    <img th:src="@{/fonts/themify-icons/SVG/icon-upload.svg}" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->
-                    <img th:src="@{/img/438124798_784307903801977_6277500578627844245_n.png}" alt="ac.">
+                    <img th:src="${post.getImage()}" alt="ac.">
 
                     Image
                     <!--              <input id="file" type="file" name = "image" th:field = "*{image}" required>-->

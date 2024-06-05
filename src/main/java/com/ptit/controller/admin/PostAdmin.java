@@ -141,130 +141,6 @@ public class PostAdmin {
         return "admin/postAdmin";
     }
 
-/*
-    @GetMapping(value = "/post/update", params = "action=update")
-//@GetMapping( "/post/update")
-//@PostMapping(value = "/post/update", params = "action=update")
-    public String updatePost(Model model, //@RequestBody String data,
-                             @RequestParam("id") int idPost
-        ,@RequestParam("image") MultipartFile image
-){
-        System.out.println("id cap nhat la: " + idPost);
-        //index = idPost;
-        Post post = postService.getPostbyIdPost(idPost);
-      //      Category category = categoryService.getCategoryByIdCategory(post.getIdCategory());
-        System.out.println(post.getTitle());
-        System.out.println(post.getContentPost());
-
-        System.out.println(post.getImage());
-
-        PostDto postDto = new PostDto();
-        postDto.setTitle(post.getTitle());
-        postDto.setContentPost(post.getContentPost());
-
-    model.addAttribute("Title",post.getTitle());
-    model.addAttribute("ContentPost",post.getContentPost());
-    String filePath = storageService.store(image);
-    filePath = getRelativePath(filePath);
-
-    System.out.println(filePath);
-
-
-    //data = post.getTitle();
-        //model.addAttribute("data",data);
-        //model.addAttribute("postDto",postDto);
-
-       // System.out.println(post.getIdCategory());
-
-//        model.addAttribute("title",post.getTitle());
-//        model.addAttribute("contentPost",post.getContentPost());
-//        model.addAttribute("image",post.getImage());
-       // model.addAttribute("category",post.getIdCategory());
-
-        return "admin/updatePost";
-    }
-    */
-//    @GetMapping("/post/update/save/{idPost}")
-//    public String update(Model model, @PathVariable(name = "idPost") int idPost){
-//        Post post = postService.getPostbyIdPost(idPost);
-//
-//        model.addAttribute("Title",post.getTitle());
-//        model.addAttribute("ContentPost",post.getContentPost());
-//        return "admin/updatePost";
-//
-//    }
-/*
-    @PostMapping("/post/update/save/{idPost}")
-    public String saveUpdate(//@ModelAttribute("postdto") PostDto postDto,
-                            // @RequestParam("category") String selectedOption ,
-                             @PathVariable(name = "idPost") int idPost,
-                             @RequestParam("title") String title ,
-                             @RequestParam("contentPost") String contentPost ,
-                             @RequestParam("image") MultipartFile image){
-        try {
-
-
-//            Category cate = categoryService.getCategoryByIdCategory(Integer.parseInt(selectedOption));
-//            postDto.setCategory(cate);
-
-            String filePath = storageService.store(image);
-            filePath = getRelativePath(filePath);
-            System.out.println(filePath);
-            System.out.println(title);
-
-            //postService.save(postDto,filePath);
-            System.out.println(idPost);
-
-
-        } catch (Exception e) {
-
-            System.out.println("khong them duoc bai viet");
-        }
-        return "admin/newPost";
-
-    }
-*/
-
-   /*
-//    @PostMapping(value = "/post/update", params = "action=update")
-@PostMapping("/post/update")
-    public String update(Model model, @RequestParam("id") int idPost,
-                      //   @ModelAttribute("postdto") PostDto postDto, // @RequestParam("id") int idPost,
-//            @RequestParam("title") String title ,
-//    @RequestParam("contentPost") String contentPost ,
-    @RequestParam("image") MultipartFile image){
-        //PostDto postDto ;
-
-      //  int idPost=index;
-        String filePath ="";
-        if (image.isEmpty()) {
-            Post post = postService.getPostbyIdPost(idPost);
-            filePath = post.getImage();
-        }
-        else{
-            filePath = storageService.store(image);
-            filePath = getRelativePath(filePath);
-        }
-      //  postService.update(title,contentPost,filePath,idPost);
-
-        int pageNum =1;
-
-        Page<Post> page = postService.findAllByOrderByIdPostDesc(pageNum);
-        int totalItems =page.getNumberOfElements() ;
-        int totalPages= page.getTotalPages();
-        List<Post> listPost = page.getContent();
-        List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
-
-        model.addAttribute("currentPage", pageNum);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalItems",totalItems);
-        model.addAttribute("listPost", listPost);
-        model.addAttribute("categories",categories);
-        return "admin/postAdmin";
-
-
-    }
-    */
 
 
     @GetMapping( "/post/update")
@@ -279,6 +155,7 @@ public class PostAdmin {
         model.addAttribute("Cate", post.getIdCategory().getCategoryName());
         model.addAttribute("Title",post.getTitle());
         model.addAttribute("ContentPost",post.getContentPost());
+        model.addAttribute("post",post);
         //model.addAttribute("idPost", idPost);
 
         session.setAttribute("idPost", idPost);
