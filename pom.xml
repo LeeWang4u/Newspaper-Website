@@ -25,15 +25,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--					<groupId>org.springframework.boot</groupId>-->
-<!--					<artifactId>spring-boot-starter-security</artifactId>-->
-<!--				</dependency>-->
+		<!--		<dependency>-->
+		<!--					<groupId>org.springframework.boot</groupId>-->
+		<!--					<artifactId>spring-boot-starter-security</artifactId>-->
+		<!--				</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -82,22 +86,22 @@
 			<version>1.6.2</version> <!-- Ensure this version is compatible with Spring Boot -->
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>commons-fileupload</groupId>-->
-<!--			<artifactId>commons-fileupload</artifactId>-->
+		<!--		<dependency>-->
+		<!--			<groupId>commons-fileupload</groupId>-->
+		<!--			<artifactId>commons-fileupload</artifactId>-->
 
-<!--		</dependency>-->
-<!--		&lt;!&ndash; https://mvnrepository.com/artifact/commons-io/commons-io &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>commons-io</groupId>-->
-<!--			<artifactId>commons-io</artifactId>-->
+		<!--		</dependency>-->
+		<!--		&lt;!&ndash; https://mvnrepository.com/artifact/commons-io/commons-io &ndash;&gt;-->
+		<!--		<dependency>-->
+		<!--			<groupId>commons-io</groupId>-->
+		<!--			<artifactId>commons-io</artifactId>-->
 
-<!--		</dependency>-->
+		<!--		</dependency>-->
 
 		<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+		<!--		</dependency>-->
 	</dependencies>
 
 	<build>
