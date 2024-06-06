@@ -42,6 +42,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void changePassByEmail(String email, String pass) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String passWord = passwordEncoder.encode(pass);
+        User userCur = userRepository.findUserByEmail(email);
+        User user = new User(userCur.getUserName(),userCur.getEmail(),passWord,userCur.getRole());
+        userRepository.save(user);
+    }
+
+    @Override
     public Boolean checkPassWordUser(String email, String password) {
         User user = userRepository.findUserByEmail(email);
         System.out.println(user.getPassWord());

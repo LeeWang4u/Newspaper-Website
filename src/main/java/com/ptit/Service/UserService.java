@@ -19,4 +19,6 @@ public interface UserService {
     void update(UserDto userDto);
     void changePass(UserDto userDto,String pass);
 
+    void changePassByEmail(String email,String pass);
+
 }
