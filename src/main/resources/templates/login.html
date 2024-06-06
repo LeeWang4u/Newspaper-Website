@@ -33,7 +33,13 @@
         </div>
         <button type="submit" class="login-button">Đăng nhập</button>
         <div class="navigation">
+<!--            <p id="home" class="nav-item">Back <a th:href="@{/user/home/page/1}"> Home!</a></p>-->
+            <p id="forgotten" class="nav-item">Forgotten <a th:href="@{/forget-password}"> password?!</a></p>
+<!--            <p id="signUp" class="nav-item">Don't have an account? <a th:href="@{/signUp}">Sign up and get started!</a></p>-->
+        </div>
+        <div class="navigation">
             <p id="home" class="nav-item">Back <a th:href="@{/user/home/page/1}"> Home!</a></p>
+<!--            <p id="forgotten" class="nav-item">Forgotten <a th:href="@{/forget-password}"> password?!</a></p>-->
             <p id="signUp" class="nav-item">Don't have an account? <a th:href="@{/signUp}">Sign up and get started!</a></p>
         </div>
     </form>

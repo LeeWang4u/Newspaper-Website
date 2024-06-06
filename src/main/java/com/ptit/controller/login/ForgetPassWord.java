@@ -30,9 +30,10 @@ public class ForgetPassWord {
     public String NewPassWord(@RequestParam("email") String email, HttpSession session,
                               @RequestParam("confirm_password") String confirm_password, @RequestParam("password") String password){
 
-        if(userService.checkUserByEmail(email.trim())){
-            return "admin/forgetPassWord";
+        if(userService.checkUserByEmail(email.trim())==false){
+            return "redirect:/login?emailwrong";
         }
+
 
         if(password.equals(confirm_password.trim())){
             Random rand = new Random();

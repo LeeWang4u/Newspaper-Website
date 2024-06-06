@@ -1,12 +1,15 @@
 package com.ptit.controller.login;
 
 import com.ptit.Dto.UserDto;
+import com.ptit.Entities.User;
 import com.ptit.Service.MailerService;
 import com.ptit.Service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +35,7 @@ public class SignUpController {
     }
 
     @PostMapping("/signUp")
-    public String signUpUserAccount(@ModelAttribute("userdto") UserDto userDto, HttpSession session){
+    public String signUpUserAccount( @ModelAttribute("userdto") UserDto userDto,  HttpSession session){
         if(userService.checkUserByEmail(userDto.getEmail())){
             return "redirect:/signUp?emailexist";
         }
@@ -45,7 +48,7 @@ public class SignUpController {
         session.setAttribute("codeVerify", codeVerify);
         mailerService.send( "New24h-noreply", userDto.getEmail().trim(), "Mã xác nhân từ New24h",mailerService.bodyReply(codeVerify));
 
-        return "redirect:/verify-signup";
+        return "admin/verify";
     }
 
     @GetMapping("/verify-signup")
@@ -57,13 +60,14 @@ public class SignUpController {
     public String VerifySignUp(HttpSession session, @RequestParam("code") String code){
         UserDto userDto = (UserDto) session.getAttribute("userdto");
         String codeVerify = (String)session.getAttribute("codeVerify");
-
+        System.out.println(userDto);
         if(code.equals(codeVerify)){
+
             userService.save(userDto);
-            return "redirect:/login?success";
+            return "/login";
         }
 
-        return "redirect:/signUp?emailexist";
+        return "/signUp";
 
     }
 }
