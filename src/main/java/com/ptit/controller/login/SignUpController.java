@@ -22,6 +22,7 @@ import java.util.Random;
 public class SignUpController {
     @Autowired
     private MailerService mailerService;
+
     private UserService userService;
 
     @ModelAttribute("userdto")
