@@ -1,5 +1,6 @@
 package com.ptit.controller.login;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ptit.Dto.UserDto;
 import com.ptit.Service.MailerService;
 import com.ptit.Service.UserService;
@@ -40,7 +41,7 @@ public class SignUpController {
         Random rand = new Random();
         int randomNum = 1000 + rand.nextInt(9000);
         String codeVerify = String.valueOf(randomNum);
-
+        System.out.println(userDto.getPassWord());
         session.setAttribute("userdto", userDto);
         session.setAttribute("codeVerify", codeVerify);
         mailerService.send( "New24h-noreply", userDto.getEmail().trim(), "Mã xác nhân từ New24h",mailerService.bodyReply(codeVerify));
@@ -57,7 +58,10 @@ public class SignUpController {
     public String VerifySignUp(HttpSession session, @RequestParam("code") String code){
         UserDto userDto = (UserDto) session.getAttribute("userdto");
         String codeVerify = (String)session.getAttribute("codeVerify");
-
+        System.out.println(userDto.getEmail());
+        System.out.println(userDto.getPassWord());
+        System.out.println(code);
+        System.out.println(codeVerify);
         if(code.equals(codeVerify)){
             userService.save(userDto);
             return "redirect:/login?success";
