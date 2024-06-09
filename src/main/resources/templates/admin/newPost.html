@@ -12,10 +12,8 @@
 </head>
 <body>
 <!--     <canvas class="orb-canvas"></canvas>-->
-     <div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
-         <h1>Bạn không có quyền truy cập vào Admin</h1>
-     </div>
-<main class="center__content" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
+
+<main class="center__content">
     <div class="main__header">
         <h1> New Post</h1>
         <form class="overlay" th:action="@{new-post}" method="post" th:object="${postdto}" enctype="multipart/form-data">
@@ -25,8 +23,18 @@
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>Title</label>
+            <div th:if="${#fields.hasErrors('title')}">
+                <ul>
+                    <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                </ul>
+            </div>
           </div>
           <textarea placeholder="Type your content" id="content" cols="30" rows="10" th:field="*{contentPost}" required></textarea>
+            <div th:if="${#fields.hasErrors('contentPost')}">
+                <ul>
+                    <li th:each="error : ${#fields.errors('contentPost')}" th:text="${error}"></li>
+                </ul>
+            </div>
           <div class="overlay__submit-button">
           <label for="file" class="secondary-btn file-upload" >
 <!--              <img src="icon-upload.svg" alt="Upload Icon" style="vertical-align: middle; margin-right: 10px;">-->

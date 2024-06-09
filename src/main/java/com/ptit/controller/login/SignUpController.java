@@ -1,7 +1,6 @@
 package com.ptit.controller.login;
 
 import com.ptit.Dto.UserDto;
-import com.ptit.Entities.User;
 import com.ptit.Service.MailerService;
 import com.ptit.Service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -36,7 +35,11 @@ public class SignUpController {
     }
 
     @PostMapping("/signUp")
-    public String signUpUserAccount( @ModelAttribute("userdto") UserDto userDto,  HttpSession session){
+    public String signUpUserAccount(@Valid @ModelAttribute("userdto") UserDto userDto, BindingResult bindingResult,  HttpSession session){
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "signUp";
+        }
         if(userService.checkUserByEmail(userDto.getEmail())){
             return "redirect:/signUp?emailexist";
         }
@@ -44,24 +47,24 @@ public class SignUpController {
         Random rand = new Random();
         int randomNum = 1000 + rand.nextInt(9000);
         String codeVerify = String.valueOf(randomNum);
-
+        System.out.println(userDto.getPassWord());
         session.setAttribute("userdto", userDto);
         session.setAttribute("codeVerify", codeVerify);
         mailerService.send( "New24h-noreply", userDto.getEmail().trim(), "Mã xác nhân từ New24h",mailerService.bodyReply(codeVerify));
 
-        return "admin/verify";
+        return "verify";
     }
 
     @GetMapping("/verify-signup")
     public String enterVerifySignUp(){
-        return "admin/verify";
+        return "verify";
     }
 
     @PostMapping("/verify-signup")
     public String VerifySignUp(HttpSession session, @RequestParam("code") String code){
         UserDto userDto = (UserDto) session.getAttribute("userdto");
         String codeVerify = (String)session.getAttribute("codeVerify");
-        System.out.println(userDto);
+
         if(code.equals(codeVerify)){
 
             userService.save(userDto);

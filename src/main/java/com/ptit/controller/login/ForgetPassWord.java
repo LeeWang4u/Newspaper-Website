@@ -1,8 +1,5 @@
 package com.ptit.controller.login;
 
-import ch.qos.logback.core.model.Model;
-import com.ptit.Dto.UserDto;
-import com.ptit.Entities.User;
 import com.ptit.Service.MailerService;
 import com.ptit.Service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +20,7 @@ public class ForgetPassWord {
 
     @GetMapping("/forget-password")
     public String forgetPassWord(){
-        return "admin/forgetPassWord";
+        return "forgetPassWord";
     }
 
     @PostMapping("/forget-password")
@@ -49,13 +46,13 @@ public class ForgetPassWord {
             return "redirect:/verify-forget-password";
         }
         else{
-            return "admin/forgetPassWord";
+            return "forgetPassWord";
         }
     }
 
     @GetMapping("/verify-forget-password")
     public String enterVerifySignUp(){
-        return "admin/verifyForgetPassWord";
+        return "verifyForgetPassWord";
     }
 
     @PostMapping("/verify-forget-password")

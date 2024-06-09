@@ -11,11 +11,13 @@ import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,10 +72,17 @@ public class PostAdmin {
 
 
     @PostMapping("/post/new-post")
-    public String saveNewPost(Model model, @ModelAttribute("postdto") PostDto postDto,
+    public String saveNewPost(Model model, @Valid @ModelAttribute("postdto") PostDto postDto, BindingResult bindingResult,
                               @RequestParam("category") String selectedOption
-            ,@RequestParam("image") MultipartFile image
+            , @RequestParam("image") MultipartFile image
     ){
+        if (bindingResult.hasErrors()) {
+            List<Category> categories = categoryService.findAllByOrderByIdCategoryDesc();
+            model.addAttribute(categories);
+
+
+            return "admin/newPost";
+        }
         try {
             UserDto currentUser = (UserDto) model.getAttribute("userdto");
 

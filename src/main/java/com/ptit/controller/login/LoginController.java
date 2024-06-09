@@ -4,6 +4,7 @@ import ch.qos.logback.core.model.Model;
 import com.ptit.Dto.UserDto;
 import com.ptit.Entities.User;
 import com.ptit.Service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,14 +25,15 @@ public UserDto userDto() {return new UserDto();}
         return "login";
     }
     @PostMapping("/login")
-    public String LoginUserAccount(@ModelAttribute("userdto") UserDto userDto, Model model) {
-        if(userService.checkUserByEmail(userDto.getEmail())==false){
+    public String LoginUserAccount(@ModelAttribute("userdto") UserDto userDto, HttpSession session) {
+        if(!userService.checkUserByEmail(userDto.getEmail())){
             return "redirect:/login?emailwrong";
         }
         User user = userService.getUserByEmail(userDto.getEmail());
         userDto.setUserName(user.getUserName());
         userDto.setRole(user.getRole().trim());
         if(userService.checkPassWordUserWithBcrypt(userDto.getPassWord(), userDto)){
+            session.setAttribute("loggedInUser", user);
             if(user.getRole().trim().equals("ROLE_ADMIN")){
                 return  "redirect:/admin/home";
             }

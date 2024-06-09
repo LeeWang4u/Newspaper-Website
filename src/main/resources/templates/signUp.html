@@ -24,19 +24,33 @@
             <input type="email" class="email login-input" th:field="*{email}" required
                    autofocus="autofocus" />
         </div>
+        <div th:if="${#fields.hasErrors('Email')}">
+            <ul>
+                <li th:each="error : ${#fields.errors('Email')}" th:text="${error}"></li>
+            </ul>
+        </div>
         <div th:if="${param.emailexist}">
-            <script>
-                alert("You email have exist please register other email");
-            </script>
+            <div class="alert alert-info"> Your email is not correct</div>
         </div>
 
         <div>
         <label class="username">Tên:</label>
         <input type="text" class="username login-input" name="username"  th:field="*{userName}" required/>
+            <div th:if="${#fields.hasErrors('UserName')}">
+                <ul>
+                    <li th:each="error : ${#fields.errors('UserName')}" th:text="${error}"></li>
+                </ul>
+            </div>
          </div>
+
         <div>
             <label class="password">Mật khẩu:</label>
             <input type="password" class="password login-input" name="password"  th:field="*{passWord}" required/>
+        </div>
+        <div th:if="${#fields.hasErrors('PassWord')}">
+            <ul>
+                <li th:each="error : ${#fields.errors('PassWord')}" th:text="${error}"></li>
+            </ul>
         </div>
         <button type="submit" class="login-button">Đăng kí</button>
 

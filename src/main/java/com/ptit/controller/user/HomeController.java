@@ -9,10 +9,12 @@ import com.ptit.Service.CategoryService;
 import com.ptit.Service.CommentService;
 import com.ptit.Service.PostService;
 import com.ptit.Service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLEncoder;
@@ -45,7 +47,14 @@ public class HomeController {
 		return "user/post";
 	}
 	@PostMapping("/post/{titlePost}")
-	public String viewPost(@ModelAttribute("cmtdto") CommentDto commentDto,@PathVariable(name = "titlePost") String titlePost,@RequestParam("idPost") int idPost,@RequestParam("idCmt") int idCmt, Model model){
+	public String viewPost(@Valid @ModelAttribute("cmtdto") CommentDto commentDto, BindingResult bindingResult, @PathVariable(name = "titlePost") String titlePost, @RequestParam("idPost") int idPost, @RequestParam("idCmt") int idCmt, Model model){
+		if (bindingResult.hasErrors()) {
+			Post post = postService.getPostbyIdPost(idPost);
+			List<Comment> cmt = commentService.findByIdPostOrderByIdCmtDesc(post);
+			model.addAttribute("post",post);
+			model.addAttribute("cmt",cmt);
+			return "user/post";
+		}
 		Post post = postService.getPostbyIdPost(idPost);
 		UserDto currentUser = (UserDto) model.getAttribute("userdto");
 		if(commentDto.getContentCmt()!=null && currentUser.getEmail()!=null) {

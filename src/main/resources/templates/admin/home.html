@@ -14,11 +14,7 @@
 
 <body class="center__content">
 <!--<canvas class="orb-canvas"></canvas>-->
-<div th:if="${userdto.getRole() != 'ROLE_ADMIN'}">
-    <h1>Bạn không có quyền truy cập vào Admin</h1>
-</div>
 
-<div class="overlay" th:unless="${userdto.getRole() != 'ROLE_ADMIN'}">
     <div class="overlay__header">
         <div class="overlay__title">
             <h1>Hello</h1>
@@ -75,7 +71,6 @@
         <li><a th:if="${userdto.email}" th:href="@{/profile}" methods="RequestMethod.GET">Profile</a></li>
         <li> <a th:href="@{/logout}" methods="RequestMethod.GET">Sign Out</a></li>
     </ul>
-</div>
 </body>
 
 </html>

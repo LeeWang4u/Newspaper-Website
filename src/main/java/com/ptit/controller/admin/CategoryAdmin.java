@@ -12,6 +12,7 @@ import com.ptit.Service.*;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -113,7 +114,7 @@ public class CategoryAdmin {
     }
 
     @PostMapping("/category/update")
-    public String saveUpdatePost(@ModelAttribute("idCategory") String idCategory,  HttpSession session, Model model,
+    public String saveUpdatePost( @ModelAttribute("idCategory") String idCategory, HttpSession session, Model model,
                                  @RequestParam("categoryName") String categoryName, @RequestParam("categoryDes") String categoryDes
          ) {
         int id = (int) session.getAttribute("idCategory");
