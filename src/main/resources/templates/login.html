@@ -17,19 +17,29 @@
 
         <div>
             <label class="email">Email:</label>
-            <input type="email" class="email login-input" th:field="*{email}" required
+            <input type="email" class="email login-input" th:field="*{email}"
                    autofocus="autofocus" />
         </div>
+        <div th:if="${#fields.hasErrors('Email')}">
+            <ul class="error-list">
+                <li class="error-message" th:each="error : ${#fields.errors('Email')}" th:text="${error}"></li>
+            </ul>
+        </div>
         <div th:if="${param.emailwrong}">
-            <div class="alert alert-info"> Your email is not correct</div>
+            <div class="alert alert-info error-message"> Your email is not correct</div>
         </div>
         <div>
             <label for="password">Mật khẩu:</label>
 
-            <input type="password" id="password" name="password" class="login-input" th:field="*{passWord}" required/>
+            <input type="password" id="password" name="password" class="login-input" th:field="*{passWord}" />
+        </div>
+        <div th:if="${#fields.hasErrors('PassWord')}">
+            <ul class="error-list">
+                <li class="error-message" th:each="error : ${#fields.errors('PassWord')}" th:text="${error}"></li>
+            </ul>
         </div>
         <div th:if="${param.passwordwrong}">
-            <div class="alert alert-info"> Your password is not correct</div>
+            <div class="alert alert-info error-message"> Your password is not correct</div>
         </div>
         <button type="submit" class="login-button">Đăng nhập</button>
         <div class="navigation">

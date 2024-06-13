@@ -21,12 +21,12 @@
 
         <div>
             <label class="email">Email:</label>
-            <input type="email" class="email login-input" th:field="*{email}" required
+            <input type="email" class="email login-input" th:field="*{email}"
                    autofocus="autofocus" />
         </div>
         <div th:if="${#fields.hasErrors('Email')}">
-            <ul>
-                <li th:each="error : ${#fields.errors('Email')}" th:text="${error}"></li>
+            <ul class="error-list">
+                <li class="error-message" th:each="error : ${#fields.errors('Email')}" th:text="${error}"></li>
             </ul>
         </div>
         <div th:if="${param.emailexist}">
@@ -35,21 +35,16 @@
 
         <div>
         <label class="username">Tên:</label>
-        <input type="text" class="username login-input" name="username"  th:field="*{userName}" required/>
-            <div th:if="${#fields.hasErrors('UserName')}">
-                <ul>
-                    <li th:each="error : ${#fields.errors('UserName')}" th:text="${error}"></li>
-                </ul>
-            </div>
+        <input type="text" class="username login-input" name="username"  th:field="*{userName}" />
          </div>
 
         <div>
             <label class="password">Mật khẩu:</label>
-            <input type="password" class="password login-input" name="password"  th:field="*{passWord}" required/>
+            <input type="password" class="password login-input" name="password"  th:field="*{passWord}" />
         </div>
         <div th:if="${#fields.hasErrors('PassWord')}">
-            <ul>
-                <li th:each="error : ${#fields.errors('PassWord')}" th:text="${error}"></li>
+            <ul class="error-list">
+                <li class="error-message" th:each="error : ${#fields.errors('PassWord')}" th:text="${error}"></li>
             </ul>
         </div>
         <button type="submit" class="login-button">Đăng kí</button>

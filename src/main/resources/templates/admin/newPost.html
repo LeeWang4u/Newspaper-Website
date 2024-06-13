@@ -24,15 +24,15 @@
             <span class="bar"></span>
             <label>Title</label>
             <div th:if="${#fields.hasErrors('title')}">
-                <ul>
-                    <li th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
+                <ul class="error-list">
+                    <li class="error-message" th:each="error : ${#fields.errors('title')}" th:text="${error}"></li>
                 </ul>
             </div>
           </div>
           <textarea placeholder="Type your content" id="content" cols="30" rows="10" th:field="*{contentPost}" required></textarea>
             <div th:if="${#fields.hasErrors('contentPost')}">
-                <ul>
-                    <li th:each="error : ${#fields.errors('contentPost')}" th:text="${error}"></li>
+                <ul class="error-list">
+                    <li class="error-message" th:each="error : ${#fields.errors('contentPost')}" th:text="${error}"></li>
                 </ul>
             </div>
           <div class="overlay__submit-button">

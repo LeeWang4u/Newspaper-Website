@@ -21,10 +21,6 @@ public class UserDto implements Serializable {
     @NoBlankSpacesOnly(message = "Email name cannot be only blank spaces")
     private String Email;
 
-    @NotBlank(message = "Username is mandatory")
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Username must only contain letters and spaces")
-    @NoBlankSpacesOnly(message = "Username name cannot be only blank spaces")
     private String UserName;
 
     @NotBlank(message = "Password is mandatory")

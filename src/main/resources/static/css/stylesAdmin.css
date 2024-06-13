@@ -887,5 +887,7 @@ a {
     padding: 10px;
     font-size:16px;
 }
-
+.error-list { list-style-type: none; padding: 0; }
+.error-message { color: red; }
+.success {color: #15ea15}
 

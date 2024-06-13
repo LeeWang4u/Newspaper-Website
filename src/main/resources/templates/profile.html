@@ -203,6 +203,11 @@
     <div class="change-password" id="section3">
 
         <h1>Change Password</h1>
+        <div th:if="${param.success}">
+            <div class="alert alert-info success">
+                You have successfully changed your password
+            </div>
+        </div>
         <div class="group">
             <svg stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                  class="icon">
@@ -211,10 +216,11 @@
                         stroke-linejoin="round" stroke-linecap="round"></path>
             </svg>
             <input class="hid-input" type="password" placeholder="password" name="pass" required>
-            <div th:if="${param.wrongpass}">
-                <script>
-                    alert("You entered the wrong password");
-                </script>
+
+        </div>
+        <div th:if="${param.wrongpass}">
+            <div class="alert alert-info error-message">
+                You entered the wrong password"
             </div>
         </div>
         <div class="group">
@@ -234,12 +240,13 @@
                         stroke-linejoin="round" stroke-linecap="round"></path>
             </svg>
             <input class="hid-input" type="password" placeholder="confirm new password" name="pass2" required>
-            <div th:if="${param.wrongconfirm}">
-                <script>
-                    alert("You confirmed the wrong new password");
-                </script>
-            </div>
+
         </div>
+        <div th:if="${param.wrongconfirm}">
+        <div class="alert alert-info error-message">
+            You confirmed the wrong new password
+        </div>
+    </div>
         <button type="submit" class="primary-btn">Save Changes</button>
     </div>
     </form>

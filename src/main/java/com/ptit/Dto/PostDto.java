@@ -23,7 +23,6 @@ public class PostDto implements Serializable {
     String title;
 
     @NotBlank(message = "Content is mandatory")
-    @Size(min = 50, max = 2000, message = "Content must be between 50 and 2000 characters")
     @NoBlankSpacesOnly(message = "Content name cannot be only blank spaces")
     String contentPost;
 

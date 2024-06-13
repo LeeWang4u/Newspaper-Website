@@ -37,7 +37,7 @@ public class SignUpController {
     @PostMapping("/signUp")
     public String signUpUserAccount(@Valid @ModelAttribute("userdto") UserDto userDto, BindingResult bindingResult,  HttpSession session){
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
+
             return "signUp";
         }
         if(userService.checkUserByEmail(userDto.getEmail())){

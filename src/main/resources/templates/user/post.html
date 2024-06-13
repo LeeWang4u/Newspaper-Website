@@ -57,11 +57,11 @@
                 <textarea name="" class="comment-text" cols="100" rows="5" placeholder="                                                                                                                                                        Viet binh luan..." th:field="*{contentCmt}"></textarea>
                 <button type="submit" >Comment</button>
                 </div>
-                <div th:if="${#fields.hasErrors('contentCmt')}">
-                    <ul>
-                        <li th:each="error : ${#fields.errors('contentCmt')}" th:text="${error}"></li>
-                    </ul>
-                </div>
+<!--                <div th:if="${#fields.hasErrors('contentCmt')}">-->
+<!--                    <ul>-->
+<!--                        <li th:each="error : ${#fields.errors('contentCmt')}" th:text="${error}"></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </form>
         </div>
         <div th:unless="${userdto.email}">

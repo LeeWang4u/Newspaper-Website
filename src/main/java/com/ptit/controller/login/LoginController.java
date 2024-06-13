@@ -5,8 +5,10 @@ import com.ptit.Dto.UserDto;
 import com.ptit.Entities.User;
 import com.ptit.Service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,12 @@ public UserDto userDto() {return new UserDto();}
         return "login";
     }
     @PostMapping("/login")
-    public String LoginUserAccount(@ModelAttribute("userdto") UserDto userDto, HttpSession session) {
+    public String LoginUserAccount(@Valid @ModelAttribute("userdto") UserDto userDto, BindingResult bindingResult ,HttpSession session) {
+    userDto.setUserName("Robot");
+    if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "login";
+        }
         if(!userService.checkUserByEmail(userDto.getEmail())){
             return "redirect:/login?emailwrong";
         }

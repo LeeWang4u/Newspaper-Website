@@ -424,3 +424,6 @@ main> :first-child p {
 .toggle-list li {
     margin: 10px 0;
 }
+.error-list { list-style-type: none; padding: 0; }
+.error-message { color: red; }
+.success {color: #15ea15}

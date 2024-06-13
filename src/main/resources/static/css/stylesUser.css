@@ -659,3 +659,6 @@ header .right button {
     background-color:rgb(211, 36, 47);
     color:  rgb(246,248,250);
 }
+.error-list { list-style-type: none; padding: 0; }
+.error-message { color: red; }
+.success {color: #15ea15}
